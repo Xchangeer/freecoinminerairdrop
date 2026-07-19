@@ -1,13 +1,15 @@
 import type React from "react"
-import type { Metadata } from "next"
-import { Geist, Manrope } from "next/font/google"
-import { SiteCaptchaGate } from "@/components/site-captcha-gate"
+import type { Metadata, Viewport } from "next"
+import { Oswald, Manrope } from "next/font/google"
+import { CartProvider } from "@/components/cart-context"
+import { Navbar } from "@/components/navbar"
+import { Footer } from "@/components/footer"
 import "./globals.css"
 
-const geist = Geist({
+const oswald = Oswald({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-geist",
+  variable: "--font-oswald",
 })
 
 const manrope = Manrope({
@@ -17,9 +19,14 @@ const manrope = Manrope({
 })
 
 export const metadata: Metadata = {
-  title: "Blockchain Vault Protocol",
-  description: "Secure cryptocurrency vault platform for wallet management",
-  generator: "redwhalesdev",
+  title: "Amak | Bold Nigerian Flavours in Lokoja",
+  description:
+    "Amak serves bold, made-to-order Nigerian food in Lokoja — from smoky party jollof to sizzling suya rice and peppered asun. Order hot, fresh, and fast.",
+  generator: "v0.app",
+}
+
+export const viewport: Viewport = {
+  themeColor: "#14110f",
 }
 
 export default function RootLayout({
@@ -28,9 +35,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${manrope.variable} antialiased dark`}>
-      <body>
-        <SiteCaptchaGate>{children}</SiteCaptchaGate>
+    <html lang="en" className={`${oswald.variable} ${manrope.variable} bg-background antialiased`}>
+      <body className="font-sans">
+        <CartProvider>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   )
